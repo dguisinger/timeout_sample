@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Copy only the projects we want to work with
 COPY timeout_sample timeout_sample
+COPY timeout_sample_datalayer timeout_sample_datalayer
 ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN apt-get update && \
     apt-get install -y unzip && \

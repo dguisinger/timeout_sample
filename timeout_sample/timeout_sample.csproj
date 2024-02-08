@@ -34,4 +34,9 @@
     <Folder Include="Controllers\" />
     <Folder Include="Commands\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\timeout_sample_datalayer\TimeoutSample.DataLayer.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

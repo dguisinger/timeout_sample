@@ -1,5 +1,5 @@
 ﻿using System;
-namespace timeout_sample
+namespace TimeoutSample.DataLayer
 {
 	public class TableConfig(string tableName)
 	{

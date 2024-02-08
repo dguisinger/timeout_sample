@@ -4,7 +4,7 @@ using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using timeout_sample;
+using TimeoutSample.DataLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -49,6 +49,7 @@ builder.Services.AddSwaggerGen(cfg =>
 
 builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonDynamoDB>();
+builder.Services.AddTransient<Repository>();
 builder.Services.AddTransient<TableConfig>(_ => new TableConfig("timeout_sample_table"));
 
 builder.Services.AddCognitoIdentity();
