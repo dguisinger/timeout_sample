@@ -18,9 +18,9 @@ namespace timeout_sample.Controllers
         [SwaggerResponse(200)]
         [SwaggerResponse(400)]
         [SwaggerResponse(401)]
-        public async Task<IActionResult> PostAsync([FromBody] Request req)
+        public async Task<IActionResult> PostAsync([FromBody] Request req, CancellationToken cancellationToken)
 		{
-			var result = await mediator.Send(new CreateTestCommand(req.TestValue));
+			var result = await mediator.Send(new CreateTestCommand(req.TestValue), cancellationToken);
 			if (result.IsFailed) return BadRequest();
 			return Ok(result.Value);
 		}
