@@ -20,7 +20,7 @@ namespace TimeoutSampleCdk
                 BillingMode = BillingMode.PAY_PER_REQUEST
             });
 
-            var lambda = new DotNetContainerizedLambdaFunction(this, "tenantsLambda", new DotNetContainerizedLambdaFunctionProps
+            var lambda = new DotNetContainerizedLambdaFunction(this, "timeoutSampleLambda", new DotNetContainerizedLambdaFunctionProps
             {
                 FunctionName = "timeout_sample",
                 Tracing = Tracing.ACTIVE,
