@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Amazon.DynamoDBv2;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -49,6 +50,13 @@ builder.Services.AddSwaggerGen(cfg =>
 
 builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonDynamoDB>();
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    //mc.AddProfile(Profile());
+});
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton<IMapper>(mapper);
 builder.Services.AddTransient<Repository>();
 builder.Services.AddTransient<TableConfig>(_ => new TableConfig("timeout_sample_table"));
 
