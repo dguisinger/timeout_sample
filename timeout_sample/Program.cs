@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Amazon.DynamoDBv2;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using timeout_sample;
 
@@ -44,8 +46,26 @@ builder.Services.AddSwaggerGen(cfg =>
     });
 });
 
+
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddTransient<TableConfig>(_ => new TableConfig("timeout_sample_table"));
+
+builder.Services.AddCognitoIdentity();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.Authority = builder.Configuration["Cognito:Authority"];
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = false
+    };
+});
 
 var app = builder.Build();
 
