@@ -1,0 +1,7 @@
+﻿@timeout_sample_HostAddress = http://localhost:5060
+
+GET {{timeout_sample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
